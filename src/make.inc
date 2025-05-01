@@ -27,7 +27,7 @@
 #========== TOPDIR ========================================================
 # TOPDIR is the directory in which this make file and the fvcom source reside
 
-           TOPDIR        =  /gpfs/home/dzd22eyu/FVCOM/uk-fvcom/src
+           TOPDIR        =  /gpfs/home/$(USER)/FVCOM/uk-fvcom/src
 # TOPDIR must be set!
 
 #========== INSTALLDIR =====================================================
@@ -35,7 +35,7 @@
 # The default is in the $(TOPDIR)/libs/install, but you can choose...
             INSTALLDIR    = $(TOPDIR)/libs/install
 #========== FABM BASEDIR ===================================================
-BASE_SETUP_DIR = /gpfs/home/dzd22eyu/local/fabm/fvcom
+BASE_SETUP_DIR = /gpfs/home/$(USER)/local/fabm/fvcom
 #===========================================================================
 # PREPROCESSOR OPTIONS FOR CPP
             DEF_FLAGS     = -P -traditional
