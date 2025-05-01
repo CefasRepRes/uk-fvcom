@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#SBATCH --mail-type=ALL #Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=robert.mcewan@cefas.gov.uk
+
+#SBATCH --qos=ib
+
+#SBATCH -p ib-64-512
+#SBATCH -t 01:00:00   #Set time limit
+#SBATCH --ntasks=28  #Set number of slots required 
+
+##SBATCH --ntasks-per-node=28
+#SBATCH --job-name=FVCOM-liverpoolbay #Set job name
+#SBATCH --exclusive
+#SBATCH -o output-%j.out
+#SBATCH -e output-%j.err
+##SBATCH --mem 16G
+
+#SBATCH --no-requeue    # so that job doesn't restart automatically when a node fails and overwrites files.
+
+module load cmake/3.16.5
+module load intel/2020-4
+module load netcdf/4.7.4/parallel/intel-2020-4-openmpi-cefas
+module load hdf5/1.10.6/intel-2020-4-openmpi-cefas
+module load mpi/openmpi/4.0.4/intel/ib-intel-2020-4-cefas
+
+##module load mpi/openmpi/4.0.3/intel
+
+##export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/gpfs/software/netcdf/parallel/4.6.1/intel-openmpi-mellanox/lib
+
+exedir=/gpfs/home/dzd22eyu/FVCOM/uk-fvcom/EXPREF/
+cd $exedir
+
+#srun -l hostname
+
+#mpirun /gpfs/home/dzd22eyu/FVCOM/uk-fvcom/src/fvcom --CASENAME=lpb --dbg=7
+mpirun /gpfs/home/dzd22eyu/FVCOM/uk-fvcom/src/fvcom --CASENAME=lpb --dbg=7 #--mca orte_base_help_aggregate 0
+#mpirun -np 28 ./FVCOM_exe --CASENAME=lpb --dbg=7
+#mpirun -np 28 /gpfs/home/etk20vdu/FVCOM/fvcom_from_pml/uk-fvcom/FVCOM_exe --CASENAME=lpb --dbg=1
+
